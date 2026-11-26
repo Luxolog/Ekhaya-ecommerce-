@@ -15,7 +15,7 @@
 | Database | PostgreSQL + migrations | Dedicated Supabase project | Keep SQL portable; no Vercel database dependency |
 | Authentication | Supabase Auth session contract | Supabase SSR client | Keep auth independent of hosting identity |
 | Object storage | Private/public object operations | Supabase Storage | Persist object keys, not provider-generated public URLs as canonical identifiers |
-| Domains | Verified hostname -> store mapping | Platform database (implementation milestone) | Route using request hostname and database mapping; provider API only automates DNS/SSL |
+| Domains | Verified hostname -> store mapping | Merchant domain table + DNS TXT ownership verification | Resolve hostnames from platform-owned records; provider APIs only automate DNS/SSL |
 | Payments | Create/verify/refund payment contract | Gateway-specific integrations (future) | Keep gateway SDKs behind server-side adapters |
 | Background jobs | Durable job record + worker | To be implemented | Critical work must not depend only on a host cron feature |
 | Email | Transactional email interface | Provider to be selected | Swap provider without changing order/account workflows |
@@ -36,4 +36,4 @@
 - Test a production build and container in CI before calling a release portable.
 
 ## Not yet implemented
-This foundation does not claim that custom-domain onboarding, automated certificate provisioning, portable job queues, payment adapters, or multi-region failover are complete. Those are separate implementation milestones.
+Merchant domain entry, plan gating, DNS TXT ownership verification and owner-scoped domain management are implemented. Custom-domain storefront routing, host-level DNS target instructions, automated certificate provisioning, portable job queues, payment adapters and multi-region failover remain separate implementation milestones.
