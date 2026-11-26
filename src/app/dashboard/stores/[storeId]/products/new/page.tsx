@@ -17,10 +17,14 @@ export default async function NewProductPage({ params }: { params: Promise<{ sto
     ? await supabase.from("plans").select("max_products,max_product_images,max_digital_products").eq("code", subscription.plan_code).maybeSingle()
     : { data: null };
 
-  const [{ count: productCount }, { count: digitalCount }] = await Promise.all([
-    supabase.from("products").select("*", { count: "exact", head: true }).eq("store_id", storeId),
-    supabase.from("products").select("*", { count: "exact", head: true }).eq("store_id", storeId).eq("product_type", "digital"),
-  ]);
+  const { data: ownedStores } = await supabase.from("stores").select("id").eq("owner_user_id", store.owner_user_id);
+  const ownedStoreIds = (ownedStores ?? []).map((item) => item.id);
+  const [{ count: productCount }, { count: digitalCount }] = ownedStoreIds.length
+    ? await Promise.all([
+        supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds),
+        supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds).eq("product_type", "digital"),
+      ])
+    : [{ count: 0 }, { count: 0 }];
 
   return (
     <main className="dashboard-shell">
