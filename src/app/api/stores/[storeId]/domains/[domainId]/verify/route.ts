@@ -10,6 +10,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
 
+  const { data: store } = await supabase.from("stores").select("id,owner_user_id")
+    .eq("id", storeId).maybeSingle();
+  if (!store) return NextResponse.json({ error: "Store not found." }, { status: 404 });
+
   const { data: subscription } = await supabase.from("store_subscriptions")
     .select("plan_code,status").eq("user_id", store.owner_user_id)
     .in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle();
@@ -17,10 +21,6 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
   const { data: plan } = await supabase.from("plans").select("custom_domain")
     .eq("code", subscription.plan_code).maybeSingle();
   if (!plan?.custom_domain) return NextResponse.json({ error: "Custom domains require a Business or Growth subscription." }, { status: 403 });
-
-  const { data: store } = await supabase.from("stores").select("id,owner_user_id")
-    .eq("id", storeId).maybeSingle();
-  if (!store) return NextResponse.json({ error: "Store not found." }, { status: 404 });
 
   const { data: domain, error: lookupError } = await supabase.from("store_domains")
     .select("id,domain,verification_token,verification_status")
