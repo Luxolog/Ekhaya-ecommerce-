@@ -60,7 +60,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
   const finalSlug = slugEdited ? slug : makeSlug(name);
   const isEditing = Boolean(initialProduct);
   const isAtProductLimit = !isEditing && productCount >= maxProducts;
-  const isAtDigitalLimit = !isEditing && digitalCount >= maxDigitalProducts;
+  const isAtDigitalLimit = digitalCount >= maxDigitalProducts && initialProduct?.product_type !== "digital";
   const remainingImages = Math.max(0, maxImages - existingImages.length);
 
   function handleImages(event: ChangeEvent<HTMLInputElement>) {
@@ -300,8 +300,9 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
       </section>
 
       {error && <div className="form-error" role="alert">{error}</div>}
-      <div className="product-form-actions"><button type="button" className="button button-outline" onClick={() => router.push(`/dashboard/stores/${storeId}/products`)}>Cancel</button><button type="submit" className="button button-primary" disabled={loading || isAtProductLimit}>{loading ? "Saving product…" : isEditing ? "Save changes" : "Save product"} <span>→</span></button></div>
-      {!isEditing && isAtProductLimit && <p className="form-error">You've reached your plan's product limit. Upgrade to add more products.</p>}
+      <div className="product-form-actions"><button type="button" className="button button-outline" onClick={() => router.push(`/dashboard/stores/${storeId}/products`)}>Cancel</button><button type="submit" className="button button-primary" disabled={loading || isAtProductLimit || (productType === "digital" && isAtDigitalLimit)}>{loading ? "Saving product…" : isEditing ? "Save changes" : "Save product"} <span>→</span></button></div>
+      {!isEditing && isAtProductLimit && <p className="form-error">You've reached your plan's product limit across your stores. Upgrade to add more products.</p>}
+      {productType === "digital" && isAtDigitalLimit && <p className="form-error">You've reached your plan's digital product limit across your stores. Upgrade to add more.</p>}
     </form>
   );
 }
