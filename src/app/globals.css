@@ -333,3 +333,10 @@ h1 em,h2 em{font-weight:500;color:#64836f}
 .public-cart-total{display:flex;justify-content:space-between;padding:22px 0;font-size:13px}
 .public-cart-note{font-size:10px;opacity:.65;line-height:1.7;margin:0 0 16px}
 @media(max-width:500px){.public-cart-item{grid-template-columns:66px 1fr;gap:12px}.public-cart-item>img,.public-cart-no-image{width:66px;height:66px}.public-cart-item>strong{grid-column:2}.public-cart-item a{font-size:16px}}
+
+
+.store-publish-row{display:flex;align-items:center;gap:18px;margin:20px 0 34px}
+.publish-store-control{display:grid;gap:7px}
+.publish-store-control [role=alert]{font-size:10px;color:#a73535;max-width:420px}
+.store-publish-row .field-hint{margin:0}
+@media(max-width:600px){.store-publish-row{align-items:flex-start;flex-direction:column}.store-publish-row .button{width:100%}}
