@@ -24,7 +24,7 @@ export default function NewStoreForm() {
       const { data, error: createError } = await supabase.rpc("create_store_for_current_user", {
         store_name: name.trim(),
         store_slug: finalSlug.trim(),
-        store_description: description.trim() || null,
+        store_description: description.trim() || undefined,
       });
       if (createError) throw createError;
       const store = Array.isArray(data) ? data[0] : data;
