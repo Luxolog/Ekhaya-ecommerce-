@@ -217,7 +217,11 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         if (imageInsertError) throw imageInsertError;
       }
 
-      if (previousDigitalPath && (productType !== "digital" || uploadedDigitalPath)) {\n        await supabase.storage.from("product-downloads").remove([previousDigitalPath]);\n      }\n\n      router.push(`/dashboard/stores/${storeId}/products`);
+      if (previousDigitalPath && (productType !== "digital" || uploadedDigitalPath)) {
+        await supabase.storage.from("product-downloads").remove([previousDigitalPath]);
+      }
+
+      router.push(`/dashboard/stores/${storeId}/products`);
       router.refresh();
     } catch (err) {
       if (uploadedImagePaths.length) await supabase.storage.from("store-assets").remove(uploadedImagePaths);
