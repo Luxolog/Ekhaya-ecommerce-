@@ -21,10 +21,12 @@ export default async function EditProductPage({ params }: { params: Promise<{ st
   const { data: plan } = subscription
     ? await supabase.from("plans").select("max_products,max_product_images,max_digital_products").eq("code", subscription.plan_code).maybeSingle()
     : { data: null };
+  const { data: ownedStores } = await supabase.from("stores").select("id").eq("owner_user_id", store.owner_user_id);
+  const ownedStoreIds = (ownedStores ?? []).map((item) => item.id);
   const [{ data: images }, { count: productCount }, { count: digitalCount }] = await Promise.all([
     supabase.from("product_images").select("id,storage_path,alt_text,position").eq("product_id", productId).order("position"),
-    supabase.from("products").select("*", { count: "exact", head: true }).eq("store_id", storeId),
-    supabase.from("products").select("*", { count: "exact", head: true }).eq("store_id", storeId).eq("product_type", "digital"),
+    ownedStoreIds.length ? supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds) : Promise.resolve({ count: 0 }),
+    ownedStoreIds.length ? supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds).eq("product_type", "digital") : Promise.resolve({ count: 0 }),
   ]);
 
   const existingImages: ExistingProductImage[] = (images ?? []).map((image) => ({
