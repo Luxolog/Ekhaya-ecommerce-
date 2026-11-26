@@ -11,7 +11,7 @@ type Domain = {
   created_at: string;
 };
 
-type DnsInstructions = { type: string; host: string; value: string; ttl: number };
+type DnsInstructions = { type: string; host: string; fqdn: string; value: string; ttl: number };
 
 export default function DomainManager({ storeId, initialDomains }: { storeId: string; initialDomains: Domain[] }) {
   const [domains, setDomains] = useState(initialDomains);
@@ -87,7 +87,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
           <div className="dns-row"><span>Host / Name</span><code>{dns.host}</code><button type="button" onClick={() => navigator.clipboard.writeText(dns.host)}>Copy</button></div>
           <div className="dns-row"><span>Value</span><code>{dns.value}</code><button type="button" onClick={() => navigator.clipboard.writeText(dns.value)}>Copy</button></div>
           <div className="dns-row"><span>TTL</span><strong>{dns.ttl}</strong></div>
-          <p className="field-hint">DNS changes can take time to appear. Once saved, return here and select Verify domain.</p>
+          <p className="field-hint">Full DNS record name: <code>{dns.fqdn}</code>. Some DNS providers ask for only the host label shown above. DNS changes can take time to appear; return here and select Verify domain once saved.</p>
         </section>
       )}
 
