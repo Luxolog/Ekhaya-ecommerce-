@@ -71,7 +71,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ sto
 
   return NextResponse.json({
     domain: data,
-    dns: { type: "TXT", host: `_ekhaya-verification.${domain}`, value: `ekhaya-verification=${token}`, ttl: 3600 },
+    dns: { type: "TXT", host: "_ekhaya-verification", fqdn: `_ekhaya-verification.${domain}`, value: `ekhaya-verification=${token}`, ttl: 3600 },
     note: "This TXT record proves domain ownership. Store routing and SSL activation are a separate step after verification."
   }, { status: 201 });
 }
