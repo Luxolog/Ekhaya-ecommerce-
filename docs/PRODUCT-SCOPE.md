@@ -51,3 +51,26 @@ All quotas and entitlements must be database-driven and editable by an administr
 6. Subscription enforcement, admin controls and pilot hardening.
 
 The 14-day target is an MVP target, not a promise that every module in the complete product scope will be production-ready in that period. The broader complete platform is a longer phased build.
+
+## Current implementation checkpoint
+
+Implemented in the repository and dedicated Supabase project:
+- Merchant registration, login, email confirmation callback and dashboard.
+- Store creation with subscription quota checks.
+- Product catalogue list, create and edit screens.
+- Physical, digital, service and bookable product types.
+- Product descriptions, category, SKU, barcode, pricing, reference cost and stock fields.
+- Product image upload with per-plan image limits.
+- Private digital product file uploads (up to 50 MB) with store-manager-only access.
+- Database triggers enforce per-plan product, digital-product and image quotas.
+- Product image records are constrained to the same store as their product.
+- Product data and uploaded files are protected by tenant-aware RLS policies.
+
+Not yet implemented:
+- Customer-facing storefront rendering and product detail pages.
+- Public category/collection browsing.
+- Product variants and options.
+- Booking calendars, appointment availability and booking fulfilment.
+- Customer digital-download delivery after verified payment.
+- Cart, checkout, payment processing and order fulfilment.
+- Subscription checkout and platform administration.
