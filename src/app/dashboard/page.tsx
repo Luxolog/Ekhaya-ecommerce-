@@ -33,7 +33,7 @@ export default async function DashboardPage() {
           <article><span>ACCOUNT</span><strong>Verified</strong><small>{user.email}</small></article>
         </div>
         <div className="dashboard-section-title"><div><div className="eyebrow">YOUR STOREFRONTS</div><h2>Stores you manage</h2></div><Link className="button button-primary" href="/dashboard/stores/new">Create a store <span>→</span></Link></div>
-        {stores?.length ? <div className="store-list">{stores.map((store) => <Link className="store-row" href={`/dashboard/stores/${store.id}`} key={store.id}><div><strong>{store.name}</strong><small>ekhaya store / {store.slug}</small></div><span className={`status-pill status-${store.status}`}>{store.status}</span><span>→</span></Link>)}</div> : <div className="empty-state"><div className="empty-icon">E</div><h3>Your first store starts here.</h3><p>Choose a plan, set up your store identity and add your first products.</p><Link className="text-link" href="/pricing">Explore plans →</Link></div>}
+        {stores?.length ? <div className="store-list">{stores.map((store) => <Link className="store-row" href={`/dashboard/stores/${store.id}`} key={store.id}><div><strong>{store.name}</strong><small>ekhaya store / {store.slug}</small></div><span className={`status-pill status-${store.status}`}>{store.status}</span><span>→</span></Link>)}</div> : <div className="empty-state"><div className="empty-icon">E</div><h3>Your first store starts here.</h3><p>Choose a plan, set up your store identity and add your first products.</p><Link className="text-link" href="/#pricing">Explore plans →</Link></div>}
       </section>
     </main>
   );
