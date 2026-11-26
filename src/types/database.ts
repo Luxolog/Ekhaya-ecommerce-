@@ -478,6 +478,8 @@ export type Database = {
         Row: {
           advanced_analytics: boolean
           advanced_marketing: boolean
+          advanced_theme_customization: boolean
+          theme_access: string[]
           code: string
           created_at: string
           custom_domain: boolean
@@ -498,6 +500,8 @@ export type Database = {
         Insert: {
           advanced_analytics?: boolean
           advanced_marketing?: boolean
+          advanced_theme_customization?: boolean
+          theme_access?: string[]
           code: string
           created_at?: string
           custom_domain?: boolean
@@ -518,6 +522,8 @@ export type Database = {
         Update: {
           advanced_analytics?: boolean
           advanced_marketing?: boolean
+          advanced_theme_customization?: boolean
+          theme_access?: string[]
           code?: string
           created_at?: string
           custom_domain?: boolean
