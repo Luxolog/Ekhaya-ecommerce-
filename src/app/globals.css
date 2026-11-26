@@ -317,3 +317,19 @@ h1 em,h2 em{font-weight:500;color:#64836f}
 .public-store-empty{padding:60px 20px;text-align:center;background:var(--sf-surface);font-size:12px;opacity:.7}
 @media(max-width:850px){.public-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.public-product-image{height:auto;aspect-ratio:1}.public-store-hero{gap:20px}.public-collection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.public-store-header{height:auto;min-height:66px;padding:12px 16px;gap:12px}.public-store-header nav{gap:12px}.public-store-header nav a{font-size:9px}.public-store-brand{font-size:12px}.public-store-hero{grid-template-columns:1fr;margin:10px auto 30px;padding:22px 18px}.public-store-hero-copy{padding:18px 0}.public-store-hero h1{font-size:48px}.public-store-hero-art{height:250px}.public-store-section{padding:10px 18px 45px}.public-store-section-heading h2{font-size:28px}.public-product-grid{gap:12px}.public-product-image{aspect-ratio:.9}.public-product-info h3{font-size:15px}.public-collection-grid{grid-template-columns:1fr}.public-product-detail{grid-template-columns:1fr;gap:25px;margin:25px auto 50px;padding:0 18px}.public-store-footer{padding:20px 18px;flex-direction:column}.public-product-gallery{gap:6px}}
+
+
+.public-add-cart{border:0;cursor:pointer;font-family:inherit}
+.public-cart{max-width:850px}
+.public-cart-items{display:grid;gap:0;border-top:1px solid color-mix(in srgb,var(--sf-ink) 15%,transparent)}
+.public-cart-item{display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid color-mix(in srgb,var(--sf-ink) 15%,transparent)}
+.public-cart-item>img,.public-cart-no-image{width:90px;height:90px;object-fit:cover;background:var(--sf-surface);display:grid;place-items:center}
+.public-cart-item a{color:inherit;text-decoration:none;font:19px 'Playfair Display',serif}
+.public-cart-item small{display:block;font-size:10px;margin:7px 0;opacity:.65}
+.public-cart-item>strong{font-size:12px}
+.public-cart-quantity{display:flex;align-items:center;gap:10px;font-size:10px}
+.public-cart-quantity button{border:1px solid color-mix(in srgb,var(--sf-ink) 20%,transparent);background:transparent;color:inherit;width:24px;height:24px;cursor:pointer}
+.public-cart-quantity .public-cart-remove{border:0;width:auto;text-decoration:underline;font-size:9px;margin-left:6px}
+.public-cart-total{display:flex;justify-content:space-between;padding:22px 0;font-size:13px}
+.public-cart-note{font-size:10px;opacity:.65;line-height:1.7;margin:0 0 16px}
+@media(max-width:500px){.public-cart-item{grid-template-columns:66px 1fr;gap:12px}.public-cart-item>img,.public-cart-no-image{width:66px;height:66px}.public-cart-item>strong{grid-column:2}.public-cart-item a{font-size:16px}}
