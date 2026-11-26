@@ -145,6 +145,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
     setLoading(true);
     let productId = initialProduct?.id;
     const uploadedImagePaths: string[] = [];
+    const insertedImageIds: string[] = [];
     let uploadedDigitalPath: string | null = null;
     const previousDigitalPath = initialProduct?.digital_asset_path ?? null;
     try {
@@ -212,9 +213,14 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         });
       }
 
-      if (imageRows.length) {
-        const { error: imageInsertError } = await supabase.from("product_images").insert(imageRows);
+      for (const imageRow of imageRows) {
+        const { data: insertedImage, error: imageInsertError } = await supabase
+          .from("product_images")
+          .insert(imageRow)
+          .select("id")
+          .single();
         if (imageInsertError) throw imageInsertError;
+        insertedImageIds.push(insertedImage.id);
       }
 
       if (previousDigitalPath && (productType !== "digital" || uploadedDigitalPath)) {
@@ -224,6 +230,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
       router.push(`/dashboard/stores/${storeId}/products`);
       router.refresh();
     } catch (err) {
+      if (insertedImageIds.length) await supabase.from("product_images").delete().in("id", insertedImageIds);
       if (uploadedImagePaths.length) await supabase.storage.from("store-assets").remove(uploadedImagePaths);
       if (uploadedDigitalPath && productId) {
         if (initialProduct) {
