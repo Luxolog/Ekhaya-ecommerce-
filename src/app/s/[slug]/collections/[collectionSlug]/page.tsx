@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProductCard, StorefrontShell } from "@/components/storefront";
-import type { PublicImage } from "@/lib/storefront";
+import type { PublicImage, PublicProduct } from "@/lib/storefront";
 
 export default async function CollectionPage({params}:{params:Promise<{slug:string;collectionSlug:string}>}) {
  const {slug,collectionSlug}=await params; const supabase=await createClient();
