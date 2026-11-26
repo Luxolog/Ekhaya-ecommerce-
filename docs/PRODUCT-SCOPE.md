@@ -74,3 +74,5 @@ Not yet implemented:
 - Customer digital-download delivery after verified payment.
 - Cart, checkout, payment processing and order fulfilment.
 - Subscription checkout and platform administration.
+
+Product and digital-product quotas are enforced across all stores owned by the merchant account. Image limits apply per product.
