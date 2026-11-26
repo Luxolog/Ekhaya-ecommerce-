@@ -1,3 +1,4 @@
+import type { Database } from "@/types/database";
 import { createBrowserClient } from "@supabase/ssr";
 
 export function createClient() {
@@ -8,5 +9,5 @@ export function createClient() {
     throw new Error("Supabase environment variables are not configured.");
   }
 
-  return createBrowserClient(url, key);
+  return createBrowserClient<Database>(url, key);
 }
