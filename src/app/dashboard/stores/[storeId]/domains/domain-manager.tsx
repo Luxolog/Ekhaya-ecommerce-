@@ -40,7 +40,12 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
     finally { setBusy(false); }
   }
 
-  function showDns(item: Domain) {\n    setDns({ type: "TXT", host: "_ekhaya-verification", fqdn: `_ekhaya-verification.${item.domain}`, value: `ekhaya-verification=${item.verification_token}`, ttl: 3600 });\n    setError(""); setMessage("");\n  }\n\n  async function verifyDomain(domainId: string) {
+  function showDns(item: Domain) {
+    setDns({ type: "TXT", host: "_ekhaya-verification", fqdn: `_ekhaya-verification.${item.domain}`, value: `ekhaya-verification=${item.verification_token}`, ttl: 3600 });
+    setError(""); setMessage("");
+  }
+
+  async function verifyDomain(domainId: string) {
     setBusy(true); setError(""); setMessage("");
     try {
       const response = await fetch(`/api/stores/${storeId}/domains/${domainId}/verify`, { method: "POST" });
