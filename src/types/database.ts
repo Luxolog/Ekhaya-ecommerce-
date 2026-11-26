@@ -918,6 +918,7 @@ export type Database = {
           },
         ]
       }
+      stores: {
         Row: {
           country_code: string
           created_at: string
