@@ -15,6 +15,6 @@ export default async function CollectionPage({params}:{params:Promise<{slug:stri
  const {data:images}=ids.length?await supabase.from("storefront_product_images").select("*").in("product_id",ids).order("position"):{data:[]};
  const imageMap=new Map<string,string>();
  for(const image of (images??[]) as PublicImage[]) if(!imageMap.has(image.product_id)) imageMap.set(image.product_id,supabase.storage.from("store-assets").getPublicUrl(image.storage_path).data.publicUrl);
- const ordered=(links??[]).map((link)=>products?.find((product)=>product.id===link.product_id)).filter((product):product is NonNullable<typeof products>[number]=>Boolean(product));
+ const ordered=(links??[]).map((link)=>products?.find((product)=>product.id===link.product_id)).filter((product): product is PublicProduct => Boolean(product));
  return <StorefrontShell store={store}><section className="public-store-section" style={{paddingTop:50}}><span className="public-store-eyebrow">COLLECTION</span><h1 style={{font:"48px 'Playfair Display',serif",margin:"12px 0"}}>{collection.name}</h1>{collection.description?<p className="public-product-description">{collection.description}</p>:null}{ordered.length?<div className="public-product-grid">{ordered.map((product)=><ProductCard key={product.id} store={store} product={product} imageUrl={imageMap.get(product.id)}/>)}</div>:<div className="public-store-empty">There are no published products in this collection yet.</div>}</section></StorefrontShell>;
 }
