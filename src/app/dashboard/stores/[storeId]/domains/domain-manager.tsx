@@ -5,6 +5,7 @@ import { useState, type FormEvent } from "react";
 type Domain = {
   id: string;
   domain: string;
+  verification_token: string;
   verification_status: string;
   is_primary: boolean;
   verified_at: string | null;
@@ -39,7 +40,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
     finally { setBusy(false); }
   }
 
-  async function verifyDomain(domainId: string) {
+  function showDns(item: Domain) {\n    setDns({ type: "TXT", host: "_ekhaya-verification", fqdn: `_ekhaya-verification.${item.domain}`, value: `ekhaya-verification=${item.verification_token}`, ttl: 3600 });\n    setError(""); setMessage("");\n  }\n\n  async function verifyDomain(domainId: string) {
     setBusy(true); setError(""); setMessage("");
     try {
       const response = await fetch(`/api/stores/${storeId}/domains/${domainId}/verify`, { method: "POST" });
@@ -101,7 +102,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
               {item.is_primary && <span className="field-hint">Primary domain</span>}
             </div>
             <div className="domain-actions">
-              {item.verification_status === "pending" && <button type="button" disabled={busy} onClick={() => verifyDomain(item.id)}>Verify domain</button>}
+              {item.verification_status === "pending" && <><button type="button" disabled={busy} onClick={() => showDns(item)}>DNS records</button><button type="button" disabled={busy} onClick={() => verifyDomain(item.id)}>Verify domain</button></>}
               <button type="button" className="button-secondary" disabled={busy} onClick={() => removeDomain(item.id)}>Remove</button>
             </div>
           </article>
