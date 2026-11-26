@@ -97,17 +97,14 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
 
   async function removeImage(image: ExistingProductImage) {
     setError("");
-    const { error: storageError } = await supabase.storage.from("store-assets").remove([image.storage_path]);
-    if (storageError) {
-      setError(storageError.message);
-      return;
-    }
     const { error: rowError } = await supabase.from("product_images").delete().eq("id", image.id).eq("store_id", storeId);
     if (rowError) {
       setError(rowError.message);
       return;
     }
     setExistingImages((current) => current.filter((item) => item.id !== image.id));
+    const { error: storageError } = await supabase.storage.from("store-assets").remove([image.storage_path]);
+    if (storageError) setError(`Image record removed, but storage cleanup needs attention: ${storageError.message}`);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
