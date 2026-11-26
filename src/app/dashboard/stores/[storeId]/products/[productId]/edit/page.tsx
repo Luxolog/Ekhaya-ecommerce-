@@ -12,7 +12,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ st
   const [{ data: store }, { data: product }, { data: subscription }] = await Promise.all([
     supabase.from("stores").select("id,name,owner_user_id").eq("id", storeId).maybeSingle(),
     supabase.from("products").select("*").eq("id", productId).eq("store_id", storeId).maybeSingle(),
-    supabase.from("store_subscriptions").select("plan_code").eq("user_id", user.id).in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("store_subscriptions").select("plan_code").eq("user_id", store?.owner_user_id ?? user.id).in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
   ]);
   if (!store || !product) notFound();
 
