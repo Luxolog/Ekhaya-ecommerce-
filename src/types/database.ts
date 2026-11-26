@@ -933,8 +933,6 @@ export type Database = {
           status: string
           storefront_theme_id: string
           storefront_appearance: Json
-          storefront_theme_id: string
-          storefront_appearance: Json
           support_email: string | null
           support_phone: string | null
           timezone: string
