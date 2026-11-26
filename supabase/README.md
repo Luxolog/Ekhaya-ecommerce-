@@ -20,3 +20,10 @@ The live Supabase project is `ekhaya-ecommerce` (`rlylfwvxxdxzmicxjbiy`).
 - Operations: notification_queue, audit_logs
 
 The initial schema was provisioned in the dedicated project before this repository's migration tracking was added. The subsequent hardening and storage migrations are recorded in `migrations/`. Before deploying a new environment, export and commit a complete baseline schema migration from Supabase so a fresh project can be reproduced from source.
+
+## Security hardening
+
+- Security helper functions are stored in the non-exposed `private` schema.
+- Store creation runs as the signed-in caller and is also guarded by an RLS policy that enforces an active plan and the plan's store quota.
+- Subscription and payment status are not writable by merchant browser sessions.
+- The Supabase security advisor was checked after the hardening migration and returned no security lints.
