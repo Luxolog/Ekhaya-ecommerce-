@@ -58,7 +58,6 @@ export default async function ProductsPage({ params }: { params: Promise<{ store
           <article><span>THIS STORE</span><strong>{storeProductCount}</strong></article>
           <article><span>ACCOUNT PRODUCTS</span><strong>{accountProductCount ?? 0}{plan ? <small> / {plan.max_products}</small> : null}</strong></article>
           <article><span>DIGITAL PRODUCTS</span><strong>{accountDigitalCount ?? 0}{plan ? <small> / {plan.max_digital_products}</small> : null}</strong></article>
-          <article><span>STORE</span><strong>{store.name}</strong></article>
         </div>
         {products?.length ? (
           <div className="product-list">
