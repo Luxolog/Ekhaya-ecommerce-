@@ -21,18 +21,18 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const { data } = await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getUser();
   const isDashboard = request.nextUrl.pathname.startsWith("/dashboard");
   const isAuthPage = ["/login", "/signup"].includes(request.nextUrl.pathname);
 
-  if (!data?.claims && isDashboard) {
+  if (!data.user && isDashboard) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
     redirectUrl.searchParams.set("next", request.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (data?.claims && isAuthPage) {
+  if (data.user && isAuthPage) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
     redirectUrl.search = "";
