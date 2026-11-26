@@ -918,7 +918,6 @@ export type Database = {
           },
         ]
       }
-      stores: {
         Row: {
           country_code: string
           created_at: string
@@ -932,6 +931,8 @@ export type Database = {
           settings: Json
           slug: string
           status: string
+          storefront_theme_id: string
+          storefront_appearance: Json
           storefront_theme_id: string
           storefront_appearance: Json
           support_email: string | null
@@ -952,6 +953,8 @@ export type Database = {
           settings?: Json
           slug: string
           status?: string
+          storefront_theme_id?: string
+          storefront_appearance?: Json
           support_email?: string | null
           support_phone?: string | null
           timezone?: string
@@ -970,6 +973,8 @@ export type Database = {
           settings?: Json
           slug?: string
           status?: string
+          storefront_theme_id?: string
+          storefront_appearance?: Json
           support_email?: string | null
           support_phone?: string | null
           timezone?: string
