@@ -19,7 +19,7 @@ The live Supabase project is `ekhaya-ecommerce` (`rlylfwvxxdxzmicxjbiy`).
 - Payments: payment_provider_connections, payment_transactions
 - Operations: notification_queue, audit_logs
 
-The initial schema was provisioned in the dedicated project before this repository's migration tracking was added. The subsequent hardening and storage migrations are recorded in `migrations/`. Before deploying a new environment, export and commit a complete baseline schema migration from Supabase so a fresh project can be reproduced from source.
+The initial schema and subsequent hardening/storage migrations are now recorded in `migrations/`, so a fresh project can be rebuilt from source.
 
 ## Security hardening
 
