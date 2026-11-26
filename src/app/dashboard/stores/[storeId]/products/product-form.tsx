@@ -3,9 +3,10 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import type { Tables } from "@/types/database";
+import type { Tables, TablesInsert } from "@/types/database";
 
 type ProductRow = Tables<"products">;
+type ProductImageInsert = TablesInsert<"product_images">;
 export type ExistingProductImage = {
   id: string;
   storage_path: string;
@@ -145,6 +146,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
     let productId = initialProduct?.id;
     const uploadedImagePaths: string[] = [];
     let uploadedDigitalPath: string | null = null;
+    const previousDigitalPath = initialProduct?.digital_asset_path ?? null;
     try {
       const values = {
         name: name.trim(),
@@ -191,7 +193,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         }
       }
 
-      const imageRows = [];
+      const imageRows: ProductImageInsert[] = [];
       for (let index = 0; index < selectedImages.length; index++) {
         const file = selectedImages[index];
         const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
@@ -217,7 +219,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         if (imageInsertError) throw imageInsertError;
       }
 
-      router.push(`/dashboard/stores/${storeId}/products`);
+      if (previousDigitalPath && (productType !== "digital" || uploadedDigitalPath)) {\n        await supabase.storage.from("product-downloads").remove([previousDigitalPath]);\n      }\n\n      router.push(`/dashboard/stores/${storeId}/products`);
       router.refresh();
     } catch (err) {
       if (uploadedImagePaths.length) await supabase.storage.from("store-assets").remove(uploadedImagePaths);
