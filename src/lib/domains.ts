@@ -4,7 +4,7 @@ import { isIP } from "node:net";
 export function normalizeCustomDomain(input: unknown): string | null {
   if (typeof input !== "string") return null;
   const raw = input.trim().toLowerCase().replace(/\.$/, "");
-  if (!raw || raw.length > 253 || /[/:?#@\\s]/.test(raw) || raw.includes("*")) return null;
+  if (!raw || raw.length > 253 || /[/:?#@\s]/.test(raw) || raw.includes("*")) return null;
   const ascii = domainToASCII(raw);
   if (!ascii || ascii.length > 253 || isIP(ascii)) return null;
   if (ascii === "localhost" || ascii.endsWith(".localhost") || ascii.endsWith(".local") || ascii.endsWith(".test")) return null;
