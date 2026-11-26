@@ -18,7 +18,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
     .select("id,domain,verification_token,verification_status")
     .eq("id", domainId).eq("store_id", storeId).maybeSingle();
   if (lookupError || !domain) return NextResponse.json({ error: "Domain not found." }, { status: 404 });
-  if (domain.verification_status === "verified" || domain.verification_status === "active") {
+  if (domain.verification_status === "verified") {
     return NextResponse.json({ verified: true, status: domain.verification_status });
   }
 
