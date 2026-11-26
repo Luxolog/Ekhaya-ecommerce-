@@ -114,7 +114,7 @@ export default function Home() {
               {plan.featured && <div className="popular-label">MOST POPULAR</div>}
               <div className="plan-name">{plan.name}</div><p className="plan-description">{plan.description}</p>
               <div className="price">{plan.price}<span>/ month</span></div>
-              <a className={`button ${plan.featured ? "button-primary" : "button-outline"}`} href="mailto:hello@ekhaya.co.za">{plan.action} <span>→</span></a>
+              <a className={`button ${plan.featured ? "button-primary" : "button-outline"}`} href="/signup">{plan.action} <span>→</span></a>
               <div className="plan-divider" /><div className="includes-label">WHAT'S INCLUDED</div>
               <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul>
             </article>
