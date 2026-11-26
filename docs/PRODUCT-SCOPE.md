@@ -76,3 +76,15 @@ Not yet implemented:
 - Subscription checkout and platform administration.
 
 Product and digital-product quotas are enforced across all stores owned by the merchant account. Image limits apply per product.
+
+
+## Storefront theme system
+
+- Theme studio route: `/dashboard/stores/[storeId]/design`.
+- Five initial themes: Minimal, Everyday Retail, Luxury, Fashion Boutique, and Beauty & Lifestyle.
+- Starter includes Minimal and Everyday Retail.
+- Business and Growth include all five themes.
+- Business and Growth can customise accent, background, and text colours; all plans can set a homepage headline.
+- Theme selection and appearance are saved under the store's existing `settings.storefront` JSON object, keeping configuration isolated per store.
+- Theme updates use the authenticated server-side Supabase client and store-manager RLS. The API validates theme IDs, plan entitlement, and colour values.
+- The current milestone delivers the theme library, selection, saved configuration and preview studio. Public storefront rendering with these theme components is the next storefront implementation step.
