@@ -11,7 +11,7 @@ export default async function PublicStorePage({ params }: { params: Promise<{ sl
   if (!store) notFound();
 
   const [{ data: products }, { data: collections }, { data: images }] = await Promise.all([
-    supabase.from("storefront_products").select("*").eq("store_id", store.id).order("created_at" as never).limit(12),
+    supabase.from("storefront_products").select("*").eq("store_id", store.id).order("name").limit(12),
     supabase.from("storefront_collections").select("*").eq("store_id", store.id).order("position"),
     supabase.from("storefront_product_images").select("*").eq("store_id", store.id).order("position"),
   ]);
