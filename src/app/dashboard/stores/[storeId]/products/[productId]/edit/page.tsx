@@ -9,12 +9,14 @@ export default async function EditProductPage({ params }: { params: Promise<{ st
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: store }, { data: product }, { data: subscription }] = await Promise.all([
-    supabase.from("stores").select("id,name,owner_user_id").eq("id", storeId).maybeSingle(),
+  const { data: store } = await supabase.from("stores").select("id,name,owner_user_id").eq("id", storeId).maybeSingle();
+  if (!store) notFound();
+
+  const [{ data: product }, { data: subscription }] = await Promise.all([
     supabase.from("products").select("*").eq("id", productId).eq("store_id", storeId).maybeSingle(),
-    supabase.from("store_subscriptions").select("plan_code").eq("user_id", store?.owner_user_id ?? user.id).in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("store_subscriptions").select("plan_code").eq("user_id", store.owner_user_id).in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
   ]);
-  if (!store || !product) notFound();
+  if (!product) notFound();
 
   const { data: plan } = subscription
     ? await supabase.from("plans").select("max_products,max_product_images,max_digital_products").eq("code", subscription.plan_code).maybeSingle()
