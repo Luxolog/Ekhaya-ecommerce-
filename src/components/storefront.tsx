@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { PublicProduct, PublicStore } from "@/lib/storefront";
 import { formatStorePrice, getStorefrontHeadline, getStorefrontStyle } from "@/lib/storefront";
 import { getStoreTheme } from "@/lib/store-themes";
@@ -9,7 +10,7 @@ type ProductCardProps = {
   imageUrl?: string;
 };
 
-export function StorefrontShell({ store, children }: { store: PublicStore; children: React.ReactNode }) {
+export function StorefrontShell({ store, children }: { store: PublicStore; children: ReactNode }) {
   const theme = getStoreTheme(store.storefront_theme_id);
   return (
     <main className="public-storefront" data-theme={theme.id} style={getStorefrontStyle(store)}>
