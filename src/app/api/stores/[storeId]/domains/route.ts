@@ -15,7 +15,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ sto
   if (!store) return NextResponse.json({ error: "Store not found." }, { status: 404 });
 
   const { data, error } = await supabase.from("store_domains")
-    .select("id,domain,verification_status,is_primary,verified_at,created_at")
+    .select("id,domain,verification_token,verification_status,is_primary,verified_at,created_at")
     .eq("store_id", storeId).order("created_at", { ascending: true });
   if (error) return NextResponse.json({ error: "Could not load domains." }, { status: 400 });
   return NextResponse.json({ domains: data ?? [] });
@@ -62,7 +62,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ sto
     verification_token: token,
     verification_status: "pending",
     is_primary: true,
-  }).select("id,domain,verification_status,is_primary,verified_at,created_at").single();
+  }).select("id,domain,verification_token,verification_status,is_primary,verified_at,created_at").single();
 
   if (error) {
     if (error.code === "23505") return NextResponse.json({ error: "This domain is already connected to another store or account." }, { status: 409 });
