@@ -977,7 +977,67 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      storefront_stores: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          description: string | null
+          logo_url: string | null
+          favicon_url: string | null
+          currency: string
+          country_code: string
+          storefront_theme_id: string
+          storefront_appearance: Json
+        }
+        Relationships: []
+      }
+      storefront_products: {
+        Row: {
+          id: string
+          store_id: string
+          name: string
+          slug: string
+          description: string | null
+          product_type: string
+          price: number
+          compare_at_price: number | null
+          category: string | null
+          is_taxable: boolean
+          weight_grams: number | null
+        }
+        Relationships: []
+      }
+      storefront_product_images: {
+        Row: {
+          id: string
+          product_id: string
+          store_id: string
+          storage_path: string
+          alt_text: string | null
+          position: number
+        }
+        Relationships: []
+      }
+      storefront_collections: {
+        Row: {
+          id: string
+          store_id: string
+          name: string
+          slug: string
+          description: string | null
+          position: number
+        }
+        Relationships: []
+      }
+      storefront_collection_products: {
+        Row: {
+          collection_id: string
+          product_id: string
+          position: number
+        }
+        Relationships: []
+      }
     }
     Functions: {
       create_store_for_current_user: {
