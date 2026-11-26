@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import ProductForm, { type ExistingProductImage } from "../../../product-form";
+import ProductForm, { type ExistingProductImage } from "../../product-form";
 
 export default async function EditProductPage({ params }: { params: Promise<{ storeId: string; productId: string }> }) {
   const { storeId, productId } = await params;
