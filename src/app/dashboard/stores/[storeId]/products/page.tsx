@@ -11,9 +11,10 @@ export default async function ProductsPage({ params }: { params: Promise<{ store
   const { data: store } = await supabase.from("stores").select("id,name,owner_user_id").eq("id", storeId).maybeSingle();
   if (!store) notFound();
 
-  const [{ data: products }, { data: subscription }] = await Promise.all([
+  const [{ data: products }, { data: subscription }, { data: ownedStores }] = await Promise.all([
     supabase.from("products").select("id,name,slug,price,status,product_type,inventory_quantity,track_inventory,sku,created_at").eq("store_id", storeId).order("created_at", { ascending: false }),
     supabase.from("store_subscriptions").select("plan_code").eq("user_id", store.owner_user_id).in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("stores").select("id").eq("owner_user_id", store.owner_user_id),
   ]);
 
   const { data: plan } = subscription
@@ -32,8 +33,14 @@ export default async function ProductsPage({ params }: { params: Promise<{ store
     }
   }
 
-  const totalProducts = products?.length ?? 0;
-  const digitalProducts = products?.filter((product) => product.product_type === "digital").length ?? 0;
+  const ownedStoreIds = (ownedStores ?? []).map((item) => item.id);
+  const [{ count: accountProductCount }, { count: accountDigitalCount }] = ownedStoreIds.length
+    ? await Promise.all([
+        supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds),
+        supabase.from("products").select("*", { count: "exact", head: true }).in("store_id", ownedStoreIds).eq("product_type", "digital"),
+      ])
+    : [{ count: 0 }, { count: 0 }];
+  const storeProductCount = products?.length ?? 0;
 
   return (
     <main className="dashboard-shell">
@@ -48,8 +55,9 @@ export default async function ProductsPage({ params }: { params: Promise<{ store
           <Link className="button button-primary" href={`/dashboard/stores/${storeId}/products/new`}>Add product <span>＋</span></Link>
         </div>
         <div className="catalogue-stats">
-          <article><span>PRODUCTS</span><strong>{totalProducts}{plan ? <small> / {plan.max_products}</small> : null}</strong></article>
-          <article><span>DIGITAL PRODUCTS</span><strong>{digitalProducts}{plan ? <small> / {plan.max_digital_products}</small> : null}</strong></article>
+          <article><span>THIS STORE</span><strong>{storeProductCount}</strong></article>
+          <article><span>ACCOUNT PRODUCTS</span><strong>{accountProductCount ?? 0}{plan ? <small> / {plan.max_products}</small> : null}</strong></article>
+          <article><span>DIGITAL PRODUCTS</span><strong>{accountDigitalCount ?? 0}{plan ? <small> / {plan.max_digital_products}</small> : null}</strong></article>
           <article><span>STORE</span><strong>{store.name}</strong></article>
         </div>
         {products?.length ? (
