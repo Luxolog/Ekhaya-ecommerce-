@@ -12,7 +12,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ sto
   if (!user) return NextResponse.json({ error: "Please sign in to change your store design." }, { status: 401 });
 
   const body = await request.json().catch(() => null) as { themeId?: string; appearance?: Record<string, unknown> } | null;
-  if (!body || !STORE_THEMES.some((theme) => theme.id === body.themeId)) {
+  if (!body || typeof body.themeId !== "string" || !STORE_THEMES.some((theme) => theme.id === body.themeId)) {
     return NextResponse.json({ error: "Choose a valid storefront theme." }, { status: 400 });
   }
 
