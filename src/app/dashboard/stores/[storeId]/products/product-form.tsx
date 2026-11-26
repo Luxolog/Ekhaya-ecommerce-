@@ -234,6 +234,8 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         await supabase.storage.from("product-downloads").remove([uploadedDigitalPath]);
       } else if (!initialProduct && productId) {
         await supabase.from("products").delete().eq("id", productId).eq("store_id", storeId);
+      } else if (initialProduct && productId) {
+        await supabase.from("products").update({ digital_asset_path: previousDigitalPath }).eq("id", productId).eq("store_id", storeId);
       }
       setError(err instanceof Error ? err.message : "Unable to save this product. Please try again.");
     } finally {
