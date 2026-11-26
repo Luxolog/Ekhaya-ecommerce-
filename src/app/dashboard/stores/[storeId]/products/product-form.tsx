@@ -176,7 +176,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
 
       if (!productId) throw new Error("Product record was not returned.");
 
-      if (digitalFile) {
+      if (productType === "digital" && digitalFile) {
         const extension = digitalFile.name.split(".").pop()?.toLowerCase() || "file";
         uploadedDigitalPath = `${storeId}/${productId}/${crypto.randomUUID()}.${extension}`;
         const { error: digitalUploadError } = await supabase.storage.from("product-downloads").upload(uploadedDigitalPath, digitalFile, {
