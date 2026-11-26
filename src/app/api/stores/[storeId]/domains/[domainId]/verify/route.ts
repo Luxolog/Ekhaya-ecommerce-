@@ -10,6 +10,14 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
 
+  const { data: subscription } = await supabase.from("store_subscriptions")
+    .select("plan_code,status").eq("user_id", user.id)
+    .in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle();
+  if (!subscription) return NextResponse.json({ error: "An active subscription is required." }, { status: 403 });
+  const { data: plan } = await supabase.from("plans").select("custom_domain")
+    .eq("code", subscription.plan_code).maybeSingle();
+  if (!plan?.custom_domain) return NextResponse.json({ error: "Custom domains require a Business or Growth subscription." }, { status: 403 });
+
   const { data: store } = await supabase.from("stores").select("id")
     .eq("id", storeId).maybeSingle();
   if (!store) return NextResponse.json({ error: "Store not found." }, { status: 404 });
