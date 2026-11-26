@@ -27,3 +27,7 @@ The initial schema and subsequent hardening/storage migrations are now recorded 
 - Store creation runs as the signed-in caller and is also guarded by an RLS policy that enforces an active plan and the plan's store quota.
 - Subscription and payment status are not writable by merchant browser sessions.
 - The Supabase security advisor was checked after the hardening migration and returned no security lints.
+
+- Digital product files are stored in the private `product-downloads` bucket (50 MB per file); browser access is restricted to store managers until a verified purchase/download flow is implemented.
+- Public product images are stored in the `store-assets` bucket (10 MB per image); upload and mutation are restricted to store managers.
+- Product and image quotas are enforced in database triggers, not only in the user interface.
