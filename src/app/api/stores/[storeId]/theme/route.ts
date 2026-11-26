@@ -36,7 +36,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ sto
 
   const current = store.settings && typeof store.settings === "object" && !Array.isArray(store.settings) ? store.settings as Record<string, Json> : {};
   const nextSettings = { ...current, storefront: { themeId: body.themeId, appearance } } as Json;
-  const { error } = await supabase.from("stores").update({ settings: nextSettings }).eq("id", storeId);
+  const { error } = await supabase.from("stores").update({ settings: nextSettings, storefront_theme_id: body.themeId, storefront_appearance: appearance }).eq("id", storeId);
   if (error) return NextResponse.json({ error: "We could not save the design. Please try again." }, { status: 400 });
   return NextResponse.json({ success: true, themeId: body.themeId as ThemeId });
 }
