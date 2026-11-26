@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 type Domain = {
   id: string;
@@ -21,7 +21,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  async function addDomain(event: React.FormEvent<HTMLFormElement>) {
+  async function addDomain(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true); setError(""); setMessage(""); setDns(null);
     try {
