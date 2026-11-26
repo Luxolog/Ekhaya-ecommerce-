@@ -27,7 +27,7 @@ export default async function StoreOverviewPage({ params }: { params: Promise<{ 
       <section className="dashboard-content">
         <div className="eyebrow">STORE WORKSPACE / OVERVIEW</div>
         <h1>{store.name}</h1>
-        <p className="dashboard-lead">Your store address: <Link href={`/s/${store.slug}`} target="_blank">ekhaya.store/s/{store.slug} ↗</Link> · <span className={`status-pill status-${store.status}`}>{store.status}</span></p>
+        <p className="dashboard-lead">Store URL path: <code>/s/{store.slug}</code> · <span className={`status-pill status-${store.status}`}>{store.status}</span></p>
         <div className="store-publish-row"><PublishStoreButton storeId={store.id} status={store.status}/>{store.status === "published" ? <Link className="text-link" href={`/s/${store.slug}`} target="_blank">View live storefront ↗</Link> : <span className="field-hint">Publish at least one product before making your store public.</span>}</div>
         <div className="dashboard-summary">
           <article><span>PRODUCTS</span><strong>{productCount ?? 0}</strong><small>In your catalogue</small></article>
