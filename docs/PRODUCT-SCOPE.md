@@ -88,3 +88,15 @@ Product and digital-product quotas are enforced across all stores owned by the m
 - Theme selection and appearance are saved under the store's existing `settings.storefront` JSON object, keeping configuration isolated per store.
 - Theme updates use the authenticated server-side Supabase client and store-manager RLS. The API validates theme IDs, plan entitlement, and colour values.
 - The current milestone delivers the theme library, selection, saved configuration and preview studio. Public storefront rendering with these theme components is the next storefront implementation step.
+
+
+## Customer-facing storefront checkpoint
+
+- Public store route: `/s/[slug]`, available only when the store is published.
+- Product detail route: `/s/[slug]/products/[productSlug]`.
+- Collection directory and collection detail routes are available under `/s/[slug]/collections`.
+- Storefront theme settings render from dedicated store theme fields; the theme studio saves those fields.
+- Product images are served from the public store-assets bucket.
+- A store-specific browser shopping bag supports adding products, changing quantities and removing items.
+- Checkout and payment processing are deliberately not enabled yet; cart prices and quantities must be revalidated server-side before any payment session is created.
+- Public data is exposed through security-invoker views. Anonymous users have column-level access only to storefront-safe fields; merchant owner IDs, cost prices, SKU/barcode, stock counts and private digital asset paths remain inaccessible.
