@@ -3,7 +3,8 @@
 import { useState } from "react";
 
 type CartItem={productId:string;slug:string;name:string;price:number;quantity:number;imageUrl?:string};
-export default function AddToCartButton({storeSlug,product}:{storeSlug:string;product:Omit<CartItem,"quantity">}) {
+type ProductInput={id:string;slug:string;name:string;price:number;imageUrl?:string};
+export default function AddToCartButton({storeSlug,product}:{storeSlug:string;product:ProductInput}) {
   const [added,setAdded]=useState(false);
   function add(){
     try {
@@ -11,7 +12,7 @@ export default function AddToCartButton({storeSlug,product}:{storeSlug:string;pr
       const items=JSON.parse(localStorage.getItem(key)||"[]") as CartItem[];
       const existing=items.find((item)=>item.productId===product.id);
       if(existing) existing.quantity=Math.min(existing.quantity+1,99);
-      else items.push({...product,quantity:1});
+      else items.push({productId:product.id,slug:product.slug,name:product.name,price:product.price,quantity:1,imageUrl:product.imageUrl});
       localStorage.setItem(key,JSON.stringify(items));
       setAdded(true);
       window.setTimeout(()=>setAdded(false),1800);
