@@ -31,3 +31,5 @@ The initial schema and subsequent hardening/storage migrations are now recorded 
 - Digital product files are stored in the private `product-downloads` bucket (50 MB per file); browser access is restricted to store managers until a verified purchase/download flow is implemented.
 - Public product images are stored in the `store-assets` bucket (10 MB per image); upload and mutation are restricted to store managers.
 - Product and image quotas are enforced in database triggers, not only in the user interface.
+
+- Product and digital-product plan limits are merchant-account-wide across all stores; image limits apply per product.
