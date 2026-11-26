@@ -33,6 +33,7 @@ export default async function StoreOverviewPage({ params }: { params: Promise<{ 
           <article><span>STOREFRONT</span><strong>{store.status === "published" ? "Live" : "Draft"}</strong><small>Store visibility</small></article>
         </div>
         <div className="store-settings-grid">
+          <article><div className="eyebrow">STOREFRONT</div><h2>Store design</h2><p>Choose a theme, preview your storefront and customise your brand colours.</p><Link className="text-link" href={`/dashboard/stores/${storeId}/design`}>Explore themes →</Link></article>
           <article><div className="eyebrow">CATALOGUE</div><h2>Products</h2><p>Add products, prices, images and inventory.</p><Link className="text-link" href={`/dashboard/stores/${storeId}/products`}>Manage products →</Link></article>
           <article><div className="eyebrow">YOUR DOMAIN</div><h2>Domain settings</h2><p>{domains?.length ? domains.map((d) => d.domain).join(", ") : "Connect a domain you already own on an eligible plan."}</p><span className="coming-soon">DOMAIN CONNECTION NEXT</span></article>
           <article><div className="eyebrow">CHECKOUT</div><h2>Payments</h2><p>Connect your own supported payment gateway account.</p><span className="coming-soon">PAYMENT SETUP NEXT</span></article>
