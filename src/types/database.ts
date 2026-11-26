@@ -1061,6 +1061,8 @@ export type Database = {
           settings: Json
           slug: string
           status: string
+          storefront_theme_id: string
+          storefront_appearance: Json
           support_email: string | null
           support_phone: string | null
           timezone: string
