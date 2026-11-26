@@ -164,6 +164,7 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         allow_backorder: productType === "physical" ? allowBackorder : false,
         weight_grams: productType === "physical" && weight ? Math.max(0, Number(weight) || 0) : null,
         status,
+        digital_asset_path: productType === "digital" ? (initialProduct?.digital_asset_path ?? null) : null,
       };
 
       if (initialProduct) {
@@ -188,9 +189,6 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
         if (digitalUploadError) throw digitalUploadError;
         const { error: digitalUpdateError } = await supabase.from("products").update({ digital_asset_path: uploadedDigitalPath }).eq("id", productId).eq("store_id", storeId);
         if (digitalUpdateError) throw digitalUpdateError;
-        if (initialProduct?.digital_asset_path) {
-          await supabase.storage.from("product-downloads").remove([initialProduct.digital_asset_path]);
-        }
       }
 
       const imageRows: ProductImageInsert[] = [];
@@ -223,7 +221,16 @@ export default function ProductForm({ storeId, maxImages, productCount, maxProdu
       router.refresh();
     } catch (err) {
       if (uploadedImagePaths.length) await supabase.storage.from("store-assets").remove(uploadedImagePaths);
-      if (uploadedDigitalPath) await supabase.storage.from("product-downloads").remove([uploadedDigitalPath]);
+      if (uploadedDigitalPath && productId) {
+        if (initialProduct) {
+          await supabase.from("products").update({ digital_asset_path: previousDigitalPath }).eq("id", productId).eq("store_id", storeId);
+        } else {
+          await supabase.from("products").delete().eq("id", productId).eq("store_id", storeId);
+        }
+        await supabase.storage.from("product-downloads").remove([uploadedDigitalPath]);
+      } else if (!initialProduct && productId) {
+        await supabase.from("products").delete().eq("id", productId).eq("store_id", storeId);
+      }
       setError(err instanceof Error ? err.message : "Unable to save this product. Please try again.");
     } finally {
       setLoading(false);
