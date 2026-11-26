@@ -567,11 +567,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "product_images_product_id_fkey"
-            columns: ["product_id"]
+            foreignKeyName: "product_images_product_store_fk"
+            columns: ["product_id", "store_id"]
             isOneToOne: false
             referencedRelation: "products"
-            referencedColumns: ["id"]
+            referencedColumns: ["id", "store_id"]
           },
           {
             foreignKeyName: "product_images_store_id_fkey"
@@ -585,6 +585,8 @@ export type Database = {
       products: {
         Row: {
           allow_backorder: boolean
+          barcode: string | null
+          category: string | null
           compare_at_price: number | null
           cost_price: number | null
           created_at: string
@@ -607,6 +609,8 @@ export type Database = {
         }
         Insert: {
           allow_backorder?: boolean
+          barcode?: string | null
+          category?: string | null
           compare_at_price?: number | null
           cost_price?: number | null
           created_at?: string
@@ -629,6 +633,8 @@ export type Database = {
         }
         Update: {
           allow_backorder?: boolean
+          barcode?: string | null
+          category?: string | null
           compare_at_price?: number | null
           cost_price?: number | null
           created_at?: string
