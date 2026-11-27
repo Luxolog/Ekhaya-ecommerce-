@@ -33,7 +33,7 @@ export function StorefrontShell({ store, children }: { store: PublicStore; child
   );
 }
 
-export function StorefrontHero({ store, imageUrl }: { store: PublicStore; imageUrl?: string }) {
+export function StorefrontHero({ store, imageUrl, imageAlt }: { store: PublicStore; imageUrl?: string; imageAlt?: string }) {
   const theme = getStoreTheme(store.storefront_theme_id);
   const eyebrow = theme.id === "luxury" ? "A MORE CONSIDERED COLLECTION"
     : theme.id === "boutique" ? "THE NEW SEASON EDIT"
@@ -55,7 +55,7 @@ export function StorefrontHero({ store, imageUrl }: { store: PublicStore; imageU
         <Link className="public-store-button" href={`/s/${store.slug}/collections`}>{action} <span aria-hidden="true">→</span></Link>
       </div>
       <div className="public-store-hero-art">
-        {imageUrl ? <img className="public-store-hero-image" src={imageUrl} alt="Featured product" fetchPriority="high" /> : <div className="public-store-hero-art-shape" aria-hidden="true" />}
+        {imageUrl ? <img className="public-store-hero-image" src={imageUrl} alt={imageAlt || "Featured product"} fetchPriority="high" /> : <div className="public-store-hero-art-shape" aria-hidden="true" />}
         <span>{store.name}</span>
         <b>{theme.id === "luxury" ? "THE SIGNATURE\nCOLLECTION" : theme.id === "boutique" ? "NEW\nARRIVALS" : theme.id === "beauty" ? "YOUR DAILY\nRITUAL" : theme.id === "retail" ? "MADE FOR\nEVERY DAY" : "LESS, BUT\nBETTER"}</b>
       </div>
