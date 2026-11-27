@@ -1,0 +1,16 @@
+node_modules
+.next
+!.next/
+.next/*
+!.next/standalone
+!.next/standalone/**
+!.next/static
+!.next/static/**
+.git
+.github
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store
+coverage
