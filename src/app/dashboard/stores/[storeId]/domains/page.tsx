@@ -16,7 +16,7 @@ export default async function StoreDomainsPage({ params }: { params: Promise<{ s
   const [{ data: subscription }, { data: domains }] = await Promise.all([
     supabase.from("store_subscriptions").select("plan_code,status").eq("user_id", store.owner_user_id)
       .in("status", ["active", "trialing"]).order("created_at", { ascending: false }).limit(1).maybeSingle(),
-    supabase.from("store_domains").select("id,domain,verification_token,verification_status,is_primary,verified_at,created_at")
+    supabase.from("store_domains").select("id,domain,verification_token,verification_status,ssl_status,routing_status,ssl_provider,ssl_provider_hostname_id,ssl_validation_records,dns_target,is_primary,verified_at,created_at")
       .eq("store_id", storeId).order("created_at", { ascending: true }),
   ]);
   const { data: plan } = subscription
