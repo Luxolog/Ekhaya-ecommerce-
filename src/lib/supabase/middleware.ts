@@ -48,7 +48,10 @@ export async function updateSession(request: NextRequest) {
     });
     if (storeSlug) {
       const rewriteUrl = request.nextUrl.clone();
-      rewriteUrl.pathname = pathname === "/" ? `/s/${storeSlug}` : `/s/${storeSlug}${pathname}`;
+      const storePrefix = `/s/${storeSlug}`;
+      rewriteUrl.pathname = pathname === storePrefix || pathname.startsWith(`${storePrefix}/`)
+        ? pathname
+        : pathname === "/" ? storePrefix : `${storePrefix}${pathname}`;
       return NextResponse.rewrite(rewriteUrl);
     }
   }
