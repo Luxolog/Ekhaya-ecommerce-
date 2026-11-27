@@ -40,11 +40,9 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
       error: "We could not find the verification TXT record yet. Check the host and value, then allow time for DNS propagation."
     }, { status: 400 });
 
-    const { error: updateError } = await supabase.from("store_domains").update({
-      verification_status: "verified",
-      verified_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    }).eq("id", domainId).eq("store_id", storeId);
+    const { error: updateError } = await supabase.rpc("verify_store_domain_ownership", {
+      p_domain_id: domainId,
+    });
     if (updateError) return NextResponse.json({ error: "DNS was found, but we could not save verification. Please retry." }, { status: 400 });
     return NextResponse.json({ verified: true, status: "verified", note: "Ownership confirmed. Store routing and SSL activation are not enabled yet." });
   } catch {
