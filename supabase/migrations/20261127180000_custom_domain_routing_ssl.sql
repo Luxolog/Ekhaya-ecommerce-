@@ -71,6 +71,15 @@ as $$
     and d.ssl_status = 'active'
     and d.routing_status = 'active'
     and s.status = 'published'
+    and exists (
+      select 1
+      from public.store_subscriptions ss
+      join public.plans p on p.code = ss.plan_code
+      where ss.user_id = s.owner_user_id
+        and ss.status in ('active', 'trialing')
+        and p.custom_domain = true
+        and p.is_active = true
+    )
   limit 1;
 $$;
 
