@@ -1103,7 +1103,7 @@ export type Database = {
       verify_store_domain_ownership: {
         Args: { p_domain_id: string }
         Returns: boolean
-      }
+      },
       resolve_public_store_slug: {
         Args: { p_hostname: string }
         Returns: string | null
