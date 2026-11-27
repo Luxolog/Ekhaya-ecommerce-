@@ -1,5 +1,11 @@
 node_modules
 .next
+!.next/
+.next/*
+!.next/standalone
+!.next/standalone/**
+!.next/static
+!.next/static/**
 .git
 .github
 .env
