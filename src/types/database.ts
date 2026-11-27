@@ -705,6 +705,13 @@ export type Database = {
           id: string
           is_primary: boolean
           ssl_status: string
+          ssl_provider: string | null
+          ssl_provider_hostname_id: string | null
+          ssl_validation_records: Json
+          dns_target: string | null
+          routing_status: string
+          ssl_last_checked_at: string | null
+          ssl_error: string | null
           store_id: string
           updated_at: string
           verification_status: string
@@ -717,6 +724,13 @@ export type Database = {
           id?: string
           is_primary?: boolean
           ssl_status?: string
+          ssl_provider?: string | null
+          ssl_provider_hostname_id?: string | null
+          ssl_validation_records?: Json
+          dns_target?: string | null
+          routing_status?: string
+          ssl_last_checked_at?: string | null
+          ssl_error?: string | null
           store_id: string
           updated_at?: string
           verification_status?: string
@@ -729,6 +743,13 @@ export type Database = {
           id?: string
           is_primary?: boolean
           ssl_status?: string
+          ssl_provider?: string | null
+          ssl_provider_hostname_id?: string | null
+          ssl_validation_records?: Json
+          dns_target?: string | null
+          routing_status?: string
+          ssl_last_checked_at?: string | null
+          ssl_error?: string | null
           store_id?: string
           updated_at?: string
           verification_status?: string
@@ -1078,6 +1099,14 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      },
+      verify_store_domain_ownership: {
+        Args: { p_domain_id: string }
+        Returns: boolean
+      },
+      resolve_public_store_slug: {
+        Args: { p_hostname: string }
+        Returns: string | null
       }
     }
     Enums: {
