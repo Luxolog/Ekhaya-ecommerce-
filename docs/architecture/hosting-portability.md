@@ -43,7 +43,7 @@ Required Cloudflare setup before activation:
 - Enable Cloudflare for SaaS on the platform zone.
 - Configure and activate a fallback origin that points to the Ekhaya application origin.
 - Configure the customer-facing CNAME target in the same zone.
-- Create an API token with the minimum required custom-hostname SSL read/write permissions.
+- Create an API token with the minimum required custom-hostname SSL read/write permissions; do not use a global account API key.
 - Set `CUSTOM_DOMAIN_SSL_PROVIDER=cloudflare`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID`, and `CLOUDFLARE_SAAS_CNAME_TARGET`.
 
 Merchants keep their domain at their own registrar. They add the Ekhaya ownership TXT record, then the provider-issued hostname/SSL validation records and CNAME. The platform polls the provider and verifies that the hostname is active, the certificate is active, and the DNS CNAME points to the configured target before setting routing active. Apex domains require provider-supported flattening/proxying; the initial CNAME workflow is intended for hostnames such as `www.example.co.za` or `shop.example.co.za`.
