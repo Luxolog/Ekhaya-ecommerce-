@@ -12,7 +12,7 @@ type Domain = {
   routing_status?: string;
   ssl_provider?: string | null;
   ssl_provider_hostname_id?: string | null;
-  ssl_validation_records?: DnsRecord[];
+  ssl_validation_records?: unknown;
   dns_target?: string | null;
   is_primary: boolean;
   verified_at: string | null;
@@ -70,7 +70,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? "Could not start SSL provisioning.");
       setDomains((current) => current.map((item) => item.id === domainId ? {
-        ...item, ssl_provider: "cloudflare", ssl_provider_hostname_id: "configured",
+        ...item, ssl_provider: "cloudflare", ssl_provider_hostname_id: result.providerHostnameId,
         ssl_status: result.sslStatus === "active" ? "active" : "pending",
         routing_status: "pending", dns_target: result.cname.value,
         ssl_validation_records: result.dnsRecords,
@@ -94,6 +94,17 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
       setMessage(result.message);
     } catch (e) { setError(e instanceof Error ? e.message : "Could not check domain status."); }
     finally { setBusy(false); }
+  }
+
+  function showProviderDns(item: Domain) {
+    const records = Array.isArray(item.ssl_validation_records)
+      ? item.ssl_validation_records as DnsRecord[]
+      : [];
+    setDns({
+      cname: item.dns_target ? { type: "CNAME", name: item.domain, value: item.dns_target, ttl: 3600 } : undefined,
+      records,
+    });
+    setError(""); setMessage("");
   }
 
   async function removeDomain(domainId: string) {
@@ -148,7 +159,7 @@ export default function DomainManager({ storeId, initialDomains }: { storeId: st
             <div className="domain-actions">
               {item.verification_status === "pending" && <><button type="button" disabled={busy} onClick={() => showOwnershipDns(item)}>Ownership TXT</button><button type="button" disabled={busy} onClick={() => verifyDomain(item.id)}>Verify ownership</button></>}
               {item.verification_status === "verified" && !item.ssl_provider_hostname_id && <button type="button" disabled={busy} onClick={() => provisionDomain(item.id)}>Provision SSL & routing</button>}
-              {item.ssl_provider_hostname_id && <button type="button" disabled={busy} onClick={() => checkStatus(item.id)}>Check activation</button>}
+              {item.ssl_provider_hostname_id && <><button type="button" disabled={busy} onClick={() => showProviderDns(item)}>DNS instructions</button><button type="button" disabled={busy} onClick={() => checkStatus(item.id)}>Check activation</button></>}
               <button type="button" className="button-secondary" disabled={busy} onClick={() => removeDomain(item.id)}>Remove</button>
             </div>
           </article>
