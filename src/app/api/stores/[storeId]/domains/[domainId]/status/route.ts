@@ -51,7 +51,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
     const { error } = await admin.from("store_domains").update({
       ssl_status: sslStatus,
       routing_status: routingStatus,
-      ssl_validation_records: hostname.validationRecords,
+      ssl_validation_records: [
+        ...(hostname.ownershipVerification ? [hostname.ownershipVerification] : []),
+        ...hostname.validationRecords,
+      ],
       ssl_error: sslError,
       ssl_last_checked_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -65,7 +68,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
       dnsTargetMatches,
       cnameTarget: provider.getCnameTarget(),
       ready: routingStatus === "active",
-      validationRecords: hostname.validationRecords,
+      validationRecords: [
+        ...(hostname.ownershipVerification ? [hostname.ownershipVerification] : []),
+        ...hostname.validationRecords,
+      ],
       message: routingStatus === "active"
         ? "Your domain is verified, routed and protected by an active SSL certificate."
         : !dnsTargetMatches
