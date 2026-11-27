@@ -38,7 +38,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
     const { error } = await admin.from("store_domains").update({
       ssl_provider: provider.name,
       ssl_provider_hostname_id: hostname.id,
-      ssl_validation_records: hostname.validationRecords,
+      ssl_validation_records: [
+        ...(hostname.ownershipVerification ? [hostname.ownershipVerification] : []),
+        ...hostname.validationRecords,
+      ],
       dns_target: provider.getCnameTarget(),
       ssl_status: hostname.sslStatus === "active" ? "active" : "pending",
       routing_status: "pending",
@@ -54,6 +57,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ st
     ];
     return NextResponse.json({
       success: true,
+      providerHostnameId: hostname.id,
       hostnameStatus: hostname.hostnameStatus,
       sslStatus: hostname.sslStatus,
       cname: { type: "CNAME", name: domain.domain, value: provider.getCnameTarget(), ttl: 3600 },
