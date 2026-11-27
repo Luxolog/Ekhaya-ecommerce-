@@ -85,7 +85,7 @@ export class CloudflareCustomDomainProvider implements CustomDomainProvider {
 
   private snapshot(hostname: CloudflareHostname): CustomHostnameSnapshot {
     const records: DnsValidationRecord[] = (hostname.ssl?.validation_records ?? [])
-      .flatMap((record) => {
+      .flatMap<DnsValidationRecord>((record) => {
         if (record.txt_name && record.txt_value) {
           return [{ type: "TXT" as const, name: record.txt_name, value: record.txt_value, status: record.status }];
         }
