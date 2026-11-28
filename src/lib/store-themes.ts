@@ -1,4 +1,4 @@
-export type ThemeId = "minimal" | "luxury" | "boutique" | "retail" | "beauty";
+export type ThemeId = "minimal" | "luxury" | "boutique" | "retail" | "beauty" | "driving" | "insurance" | "household";
 
 export type StoreTheme = {
   id: ThemeId;
@@ -13,6 +13,10 @@ export type StoreTheme = {
     accent: string;
     hero: string;
   };
+  heroHeadline?: string;
+  heroDescription?: string;
+  heroCta?: string;
+  heroEyebrow?: string;
 };
 
 export const STORE_THEMES: StoreTheme[] = [
@@ -55,6 +59,42 @@ export const STORE_THEMES: StoreTheme[] = [
     description: "Soft tones and calm layouts for beauty and lifestyle products.",
     access: "business",
     preview: { background: "#fbf5f5", surface: "#ffffff", ink: "#382b31", accent: "#ad718b", hero: "#f0dfe6" },
+  },
+  {
+    id: "driving",
+    name: "Driving School",
+    category: "Driving lessons & learner support",
+    description: "A confident, high-contrast layout for driving schools, lesson packages and learner resources.",
+    access: "business",
+    preview: { background: "#f5f7f9", surface: "#ffffff", ink: "#172433", accent: "#e5b92e", hero: "#e8edf2" },
+    heroHeadline: "Your journey starts here.",
+    heroDescription: "Explore driving lessons, instructor-led training and learner resources to help you get road ready.",
+    heroCta: "Explore lesson packages",
+    heroEyebrow: "DRIVING LESSONS & LEARNER SUPPORT",
+  },
+  {
+    id: "insurance",
+    name: "Insurance",
+    category: "Insurance & financial protection",
+    description: "A reassuring, professional layout for insurance products, cover information and quote enquiries.",
+    access: "business",
+    preview: { background: "#f3f6fa", surface: "#ffffff", ink: "#142b46", accent: "#2f8c83", hero: "#e2edf0" },
+    heroHeadline: "Protection for what matters.",
+    heroDescription: "Explore cover options and find clear information to help you make confident protection decisions.",
+    heroCta: "Explore cover options",
+    heroEyebrow: "COVER THAT MOVES WITH YOU",
+  },
+  {
+    id: "household",
+    name: "Household & Essentials",
+    category: "Home, kitchen & everyday essentials",
+    description: "A warm, practical shopping experience for household products, useful gadgets and everyday finds.",
+    access: "business",
+    preview: { background: "#faf7f1", surface: "#ffffff", ink: "#302a22", accent: "#a96f42", hero: "#eee3d5" },
+    heroHeadline: "Make everyday living easier.",
+    heroDescription: "Discover useful home, kitchen and household essentials selected for everyday life.",
+    heroCta: "Shop household essentials",
+    heroEyebrow: "THOUGHTFUL FINDS FOR YOUR HOME",
   },
 ];
 
