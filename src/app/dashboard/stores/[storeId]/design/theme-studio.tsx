@@ -55,7 +55,7 @@ export default function ThemeStudio({ storeId, initialTheme, initialAppearance, 
           const unlocked = allowedThemes.includes(theme.id);
           const active = selected === theme.id;
           return (
-            <button type="button" key={theme.id} className={`theme-choice ${active ? "theme-choice-active" : ""} ${!unlocked ? "theme-choice-locked" : ""}`} onClick={() => { if (unlocked) { setSelected(theme.id); setMessage(""); setAppearance({}); } }} aria-pressed={active} disabled={!unlocked}>
+            <button type="button" key={theme.id} className={`theme-choice ${active ? "theme-choice-active" : ""} ${!unlocked ? "theme-choice-locked" : ""}`} onClick={() => { if (unlocked) { setSelected(theme.id); setMessage(""); } }} aria-pressed={active} disabled={!unlocked}>
               <div className="theme-preview" data-theme={theme.id} style={{ background: theme.preview.background, color: theme.preview.ink }}>
                 <div className="theme-preview-nav"><span>YOUR BRAND</span><span>SHOP　 ABOUT　 BAG</span></div>
                 <div className="theme-preview-hero" style={{ background: theme.preview.hero }}>
