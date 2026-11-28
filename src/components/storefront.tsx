@@ -37,12 +37,12 @@ export function StorefrontHero({ store }: { store: PublicStore }) {
   return (
     <section className="public-store-hero">
       <div className="public-store-hero-copy">
-        <span className="public-store-eyebrow">THE OFFICIAL ONLINE STORE</span>
+        <span className="public-store-eyebrow">{theme.heroEyebrow ?? "THE OFFICIAL ONLINE STORE"}</span>
         <h1>{getStorefrontHeadline(store)}</h1>
-        <p>{store.description || "Discover the latest products from our store."}</p>
-        <Link className="public-store-button" href={`/s/${store.slug}/collections`}>Explore the collection <span>→</span></Link>
+        <p>{store.description || theme.heroDescription || "Discover the latest products from our store."}</p>
+        <Link className="public-store-button" href={`/s/${store.slug}/collections`}>{theme.heroCta ?? "Explore the collection"} <span>→</span></Link>
       </div>
-      <div className="public-store-hero-art"><span>{store.name}</span><i/><b>SHOP<br/>THE EDIT</b></div>
+      <div className="public-store-hero-art"><span>{store.name}</span><i/><b>{theme.id === "driving" ? <>LEARN<br/>TO DRIVE</> : theme.id === "insurance" ? <>COVER<br/>WITH CONFIDENCE</> : theme.id === "household" ? <>EVERYDAY<br/>ESSENTIALS</> : <>SHOP<br/>THE EDIT</>}</b></div>
     </section>
   );
 }
