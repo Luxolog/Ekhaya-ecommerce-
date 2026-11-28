@@ -81,13 +81,14 @@ Product and digital-product quotas are enforced across all stores owned by the m
 ## Storefront theme system
 
 - Theme studio route: `/dashboard/stores/[storeId]/design`.
-- Five initial themes: Minimal, Everyday Retail, Luxury, Fashion Boutique, and Beauty & Lifestyle.
+- Eight themes: Minimal, Everyday Retail, Luxury, Fashion Boutique, Beauty & Lifestyle, Driving School, Insurance, and Household & Essentials.
 - Starter includes Minimal and Everyday Retail.
-- Business and Growth include all five themes.
-- Business and Growth can customise accent, background, and text colours; all plans can set a homepage headline.
+- Business and Growth include all eight themes; Starter remains limited to Minimal and Everyday Retail.
+- All plans can set a homepage headline and primary brand colour. Business and Growth can additionally customise page background and text colours.
 - Theme selection and appearance are saved under the store's existing `settings.storefront` JSON object, keeping configuration isolated per store.
 - Theme updates use the authenticated server-side Supabase client and store-manager RLS. The API validates theme IDs, plan entitlement, and colour values.
-- The current milestone delivers the theme library, selection, saved configuration and preview studio. Public storefront rendering with these theme components is the next storefront implementation step.
+- The theme library includes dedicated visual treatments and storefront messaging for driving schools, insurance providers, and household essentials retailers. Theme selection, saved configuration and previews remain part of the shared theme studio.
+- Driving-school booking calendars/enrolment workflows and insurance quote/lead-management workflows are separate industry modules and must be implemented before those business actions are advertised as fully online.
 
 
 ## Customer-facing storefront checkpoint

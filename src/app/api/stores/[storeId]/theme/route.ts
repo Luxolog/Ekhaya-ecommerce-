@@ -28,8 +28,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ sto
   const incoming = body.appearance ?? {};
   const appearance: Record<string, string> = {};
   if (typeof incoming.headline === "string") appearance.headline = incoming.headline.trim().slice(0, 90);
+  // Every plan can apply its primary brand colour. Advanced controls remain plan-gated.
+  if (isHex(incoming.accent)) appearance.accent = incoming.accent;
   if (plan?.advanced_theme_customization) {
-    if (isHex(incoming.accent)) appearance.accent = incoming.accent;
     if (isHex(incoming.background)) appearance.background = incoming.background;
     if (isHex(incoming.text)) appearance.text = incoming.text;
   }
