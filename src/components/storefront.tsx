@@ -34,6 +34,7 @@ export function StorefrontShell({ store, children }: { store: PublicStore; child
 }
 
 export function StorefrontHero({ store }: { store: PublicStore }) {
+  const theme = getStoreTheme(store.storefront_theme_id);
   return (
     <section className="public-store-hero">
       <div className="public-store-hero-copy">
