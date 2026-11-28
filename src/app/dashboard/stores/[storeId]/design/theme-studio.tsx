@@ -60,7 +60,7 @@ export default function ThemeStudio({ storeId, initialTheme, initialAppearance, 
                 <div className="theme-preview-nav"><span>YOUR BRAND</span><span>SHOP　 ABOUT　 BAG</span></div>
                 <div className="theme-preview-hero" style={{ background: theme.preview.hero }}>
                   <small>{theme.category.toUpperCase()}</small>
-                  <strong>{theme.id === "luxury" ? "The art of living well." : theme.id === "boutique" ? "Made to be noticed." : theme.id === "beauty" ? "A little more you." : theme.id === "retail" ? "Find your everyday favourites." : "Good things, thoughtfully chosen."}</strong>
+                  <strong>{theme.id === "luxury" ? "The art of living well." : theme.id === "boutique" ? "Made to be noticed." : theme.id === "beauty" ? "A little more you." : theme.id === "retail" ? "Find your everyday favourites." : theme.id === "driving" ? "Your journey starts here." : theme.id === "insurance" ? "Protection for what matters." : theme.id === "household" ? "Make everyday living easier." : "Good things, thoughtfully chosen."}</strong>
                   <i style={{ background: theme.preview.accent }}>EXPLORE</i>
                 </div>
                 <div className="theme-preview-products"><span/><span/><span/></div>
