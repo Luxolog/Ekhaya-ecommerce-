@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";\nimport "./industry-themes.css";
+import "./globals.css";
+import "./industry-themes.css";
 
 export const metadata: Metadata = {
   title: "Ekhaya Ecommerce | Your business. Your store.",
