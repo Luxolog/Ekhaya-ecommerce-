@@ -1,0 +1,23 @@
+/* Industry-specific storefront theme treatments */
+.public-storefront[data-theme="driving"] .public-store-header{border-bottom:3px solid var(--sf-accent)}
+.public-storefront[data-theme="driving"] .public-store-hero-art{background:linear-gradient(145deg,#172433,#26394d);color:#f0c43b}
+.public-storefront[data-theme="driving"] .public-store-hero-art>i{width:210px;height:210px;border:12px solid currentColor;border-radius:50%;background:radial-gradient(circle,#26394d 0 23%,transparent 24%);box-shadow:none}
+.public-storefront[data-theme="driving"] .public-store-hero-art>i:before{top:72px;left:72px;width:42px;height:42px;border-radius:50%;background:currentColor}
+.public-storefront[data-theme="driving"] .public-store-hero-art>b{color:#fff;letter-spacing:1px}
+.public-storefront[data-theme="driving"] .public-store-button{font-weight:700}
+.public-storefront[data-theme="driving"] .public-collection-card{border-bottom:4px solid var(--sf-accent)}
+
+.public-storefront[data-theme="insurance"] .public-store-hero-art{background:linear-gradient(145deg,#e4eef1,#d3e3e7);color:#2f8c83}
+.public-storefront[data-theme="insurance"] .public-store-hero-art>i{width:165px;height:195px;border:0;border-radius:0;clip-path:polygon(50% 0,94% 16%,87% 66%,50% 100%,13% 66%,6% 16%);background:linear-gradient(145deg,#fff,#c7dedc);box-shadow:0 25px 45px #173e4b20}
+.public-storefront[data-theme="insurance"] .public-store-hero-art>i:before{top:68px;left:62px;width:42px;height:48px;border-radius:22px 22px 5px 5px;background:var(--sf-accent)}
+.public-storefront[data-theme="insurance"] .public-store-hero-art>b{color:#17334b}
+.public-storefront[data-theme="insurance"] .public-store-button{border-radius:3px}
+.public-storefront[data-theme="insurance"] .public-collection-card{border-radius:5px}
+
+.public-storefront[data-theme="household"] .public-store-hero-art{background:linear-gradient(145deg,#f0e6d9,#e8d7c4);color:#a96f42}
+.public-storefront[data-theme="household"] .public-store-hero-art>i{width:155px;height:180px;border:1px solid #a96f42;border-radius:18px 18px 8px 8px;background:linear-gradient(90deg,#d8b18e,#f9f0e5 52%,#c99a70);box-shadow:18px 22px 35px #60452b22}
+.public-storefront[data-theme="household"] .public-store-hero-art>i:before{top:-14px;left:48px;width:58px;height:14px;border-radius:5px 5px 0 0;background:#a96f42}
+.public-storefront[data-theme="household"] .public-store-hero-art>b{color:#5d402a}
+.public-storefront[data-theme="household"] .public-product-image{border-radius:8px;background:#f1e8dc}
+.public-storefront[data-theme="household"] .public-collection-card{border-radius:8px}
+.public-storefront[data-theme="household"] .public-store-button{border-radius:5px}
