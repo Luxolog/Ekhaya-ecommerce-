@@ -38,7 +38,7 @@ export function getStorefrontHeadline(store: PublicStore) {
     : {};
   return typeof appearance.headline === "string" && appearance.headline.trim()
     ? appearance.headline.trim()
-    : `Welcome to ${store.name}`;
+    : getStoreTheme(store.storefront_theme_id).heroHeadline ?? `Welcome to ${store.name}`;
 }
 
 export function formatStorePrice(price: number, currency: string) {
