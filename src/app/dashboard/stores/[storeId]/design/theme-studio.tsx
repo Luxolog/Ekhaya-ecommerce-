@@ -75,18 +75,18 @@ export default function ThemeStudio({ storeId, initialTheme, initialAppearance, 
       <section className="theme-customizer">
         <div className="eyebrow">BRAND CUSTOMISATION</div>
         <h2>Make it yours</h2>
-        <p>Set a headline and brand colours for your storefront.</p>
+        <p>Match your storefront to your existing brand identity. Your selected industry layout and store functionality will remain unchanged.</p>
         <div className="theme-customizer-grid">
           <label>Homepage headline<input value={appearance.headline ?? ""} maxLength={90} placeholder="A great headline for your store" onChange={(event) => setAppearance((current) => ({ ...current, headline: event.target.value }))} /></label>
-          <label>Accent colour<input type="color" value={accent} disabled={!advancedCustomization} onChange={(event) => setAppearance((current) => ({ ...current, accent: event.target.value }))} /></label>
+          <label>Primary brand colour<input type="color" value={accent} onChange={(event) => setAppearance((current) => ({ ...current, accent: event.target.value }))} /></label>
           <label>Page background<input type="color" value={background} disabled={!advancedCustomization} onChange={(event) => setAppearance((current) => ({ ...current, background: event.target.value }))} /></label>
           <label>Text colour<input type="color" value={text} disabled={!advancedCustomization} onChange={(event) => setAppearance((current) => ({ ...current, text: event.target.value }))} /></label>
         </div>
-        {!advancedCustomization && <p className="theme-upgrade-note">Custom brand colours are included with Business and Growth. You can still choose either Starter theme and add a homepage headline.</p>}
+        {!advancedCustomization && <p className="theme-upgrade-note">Your primary brand colour and homepage headline are available on every plan. Business and Growth also unlock page background and text colour controls.</p>}
         <div className="theme-save-row"><span role="status">{message}</span><button className="button button-primary" type="button" onClick={saveTheme} disabled={saving}>{saving ? "Saving…" : "Save storefront design"}</button></div>
       </section>
       <aside className="theme-live-preview" style={{ background, color: text, borderColor: accent }}>
-        <div className="eyebrow">DESIGN PREVIEW</div><h3>{appearance.headline?.trim() || selectedTheme.name + " for your brand"}</h3><p>{selectedTheme.description}</p><span style={{ background: accent }}>SHOP COLLECTION</span>
+        <div className="eyebrow">DESIGN PREVIEW</div><h3>{appearance.headline?.trim() || selectedTheme.name + " for your brand"}</h3><p>{selectedTheme.description}</p><span style={{ background: accent, color: "#fff" }}>SHOP COLLECTION</span>
       </aside>
     </div>
   );
