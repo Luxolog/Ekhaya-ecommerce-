@@ -87,7 +87,8 @@ Product and digital-product quotas are enforced across all stores owned by the m
 - Business and Growth can customise accent, background, and text colours; all plans can set a homepage headline.
 - Theme selection and appearance are saved under the store's existing `settings.storefront` JSON object, keeping configuration isolated per store.
 - Theme updates use the authenticated server-side Supabase client and store-manager RLS. The API validates theme IDs, plan entitlement, and colour values.
-- The theme library includes dedicated visual treatments and storefront messaging for driving schools, insurance providers, and household essentials retailers. Theme selection, saved configuration and previews remain part of the shared theme studio.\n- Driving-school booking calendars/enrolment workflows and insurance quote/lead-management workflows are separate industry modules and must be implemented before those business actions are advertised as fully online.
+- The theme library includes dedicated visual treatments and storefront messaging for driving schools, insurance providers, and household essentials retailers. Theme selection, saved configuration and previews remain part of the shared theme studio.
+- Driving-school booking calendars/enrolment workflows and insurance quote/lead-management workflows are separate industry modules and must be implemented before those business actions are advertised as fully online.
 
 
 ## Customer-facing storefront checkpoint
